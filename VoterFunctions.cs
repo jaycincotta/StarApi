@@ -37,8 +37,8 @@ namespace StarApi
         public static async Task<IActionResult> SearchByName(
     [HttpTrigger(AuthorizationLevel.Function, "get", "post", Route = null)] HttpRequest req, ILogger log)
         {
-            string firstName = $"{req.Query["firstName"]}%";
-            string lastName = $"{req.Query["lastName"]}%";
+            string firstName = req.Query["firstName"] + "%";
+            string lastName = req.Query["lastName"] + "%";
             int birthYear = int.Parse(req.Query["birthYear"]);
             log.LogInformation($"{nameof(SearchByName)}: FirstName: {firstName} LastName: {lastName} BirthYear: {birthYear}");
 
