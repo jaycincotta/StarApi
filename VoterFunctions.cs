@@ -45,7 +45,7 @@ namespace StarApi
             var connectionString = Environment.GetEnvironmentVariable("VoterDb");
             using var connection = new SqlConnection(connectionString);
             var matches = await connection.QueryAsync<dynamic>(
-                "SELECT top 100 VoterId, FirstName, LastName, ZipCode, HouseNum, StreetName, City, County, Address1 from VOTERS WHERE FirstName LIKE @firstName AND LastName LIKE @lastName AND BirthYear = @birthYear",
+                "SELECT top 100 VoterId, FirstName, LastName, Address1, HouseNum, StreetName, City, County, ZipCode from VOTERS WHERE FirstName LIKE @firstName AND LastName LIKE @lastName AND BirthYear = @birthYear",
                 new { firstName, lastName, birthYear }
                 ).ConfigureAwait(false);
 
@@ -82,7 +82,7 @@ namespace StarApi
             var connectionString = Environment.GetEnvironmentVariable("VoterDb");
             using var connection = new SqlConnection(connectionString);
             var matches = await connection.QueryAsync<dynamic>(
-                "SELECT VoterId, FirstName, LastName, ZipCode, HouseNum, StreetName, City, County, Address1 from VOTERS WHERE zipcode = @zipcode AND houseNum = @houseNum",
+                "SELECT VoterId, FirstName, LastName, Address1, HouseNum, StreetName, City, County, ZipCode from VOTERS WHERE zipcode = @zipcode AND houseNum = @houseNum",
                 new { zipcode, houseNum }
                 ).ConfigureAwait(false);
 
