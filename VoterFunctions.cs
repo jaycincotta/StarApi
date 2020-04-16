@@ -26,7 +26,7 @@ namespace StarApi
             var connectionString = Environment.GetEnvironmentVariable("VoterDb");
             using var connection = new SqlConnection(connectionString);
             var matches = await connection.QueryAsync<dynamic>(
-                "SELECT VoterId from VOTERS WHERE FirstName = @firstName AND LastName = @lastName AND BirthYear = @birthYear",
+                "SELECT  top 100 VoterId, FirstName, LastName, Address1, HouseNum, StreetName, City, County, ZipCode from VOTERS WHERE FirstName = @firstName AND LastName = @lastName AND BirthYear = @birthYear",
                 new { firstName, lastName, birthYear }
                 ).ConfigureAwait(false);
 
@@ -64,7 +64,7 @@ namespace StarApi
             var connectionString = Environment.GetEnvironmentVariable("VoterDb");
             using var connection = new SqlConnection(connectionString);
             var matches = await connection.QueryAsync<dynamic>(
-                "SELECT VoterId from VOTERS WHERE zipcode = @zipcode AND houseNum = @houseNum AND BirthYear = @birthYear",
+                "SELECT top 100 VoterId, FirstName, LastName, Address1, HouseNum, StreetName, City, County, ZipCode  from VOTERS WHERE zipcode = @zipcode AND houseNum = @houseNum AND BirthYear = @birthYear",
                 new { zipcode, houseNum, birthYear }
                 ).ConfigureAwait(false);
 
@@ -87,6 +87,19 @@ namespace StarApi
                 ).ConfigureAwait(false);
 
             return new OkObjectResult(matches);
+        }
+
+        [FunctionName(nameof(Ping2))]
+        public static async Task<IActionResult> Ping2(
+    [HttpTrigger(AuthorizationLevel.Function, "post", Route = null)] HttpRequest req,
+    ILogger log)
+        {
+            log.LogInformation("Ping!");
+
+            string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
+            dynamic data = JsonConvert.DeserializeObject(requestBody);
+            //var data = "HELLO";
+            return new OkObjectResult(data);
         }
     }
 }
