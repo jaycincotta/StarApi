@@ -89,8 +89,8 @@ namespace StarApi
             return new OkObjectResult(matches);
         }
 
-        [FunctionName(nameof(Ping2))]
-        public static async Task<IActionResult> Ping2(
+        [FunctionName(nameof(Ping))]
+        public static async Task<IActionResult> Ping(
     [HttpTrigger(AuthorizationLevel.Function, "post", Route = null)] HttpRequest req,
     ILogger log)
         {
@@ -98,7 +98,6 @@ namespace StarApi
 
             string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
             dynamic data = JsonConvert.DeserializeObject(requestBody);
-            //var data = "HELLO";
             return new OkObjectResult(data);
         }
     }
