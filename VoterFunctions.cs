@@ -23,7 +23,7 @@ namespace StarApi
             int birthYear = int.Parse(req.Query["birthYear"]);
             log.LogInformation($"{nameof(FindByName)}: FirstName: {firstName} LastName: {lastName} BirthYear: {birthYear}");
 
-            var connectionString = Environment.GetEnvironmentVariable("VoterDb");
+            var connectionString = Environment.GetEnvironmentVariable("DATABASE");
             using var connection = new SqlConnection(connectionString);
             var matches = await connection.QueryAsync<dynamic>(
                 "SELECT  top 100 VoterId, FirstName, LastName, Address1, HouseNum, StreetName, City, County, ZipCode from VOTERS WHERE FirstName = @firstName AND LastName = @lastName AND BirthYear = @birthYear",

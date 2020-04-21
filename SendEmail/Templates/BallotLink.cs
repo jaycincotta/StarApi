@@ -1,42 +1,27 @@
-using System;
-using System.Net;
-using System.IO;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Azure.WebJobs;
-using Microsoft.Azure.WebJobs.Extensions.Http;
-using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
-using SendGrid;
-using SendGrid.Helpers.Mail;
-
-namespace StarApi
+ï»¿
+namespace StarApi.SendEmail.Templates
 {
-    public class Email
+    public class BallotLink : EmailTemplate
     {
-        public string subject { get; private set; }
-        public string text { get; private set; }
-        public string html { get; private set; }
+        private dynamic voter { get; set; }
+        private string url => $"https://star.ipo.vote/2020primary/{voter.starId}";
+        string mailto => $"mailto:support@equal.vote?subject={mailtoSubject}";
+        private string mailtoSubject => $"RE:%20Ballot%20{voter.starId}";
 
-        public Email(string subject, string text, string html)
-        {
-            this.subject = subject;
-            this.text = text;
-            this.html = html;
-        }
-    }
-    public static class RequestBallotFunctions
-    {
-        private static Email FormatEmail(dynamic voter)
-        {
-            string url = $"https://star.ipo.vote/2020primary/{voter.starId}";
-            string subject = $"CONFIDENTIAL: IPO Primary Ballot for {voter.firstName} {voter.lastName}";
-            string mailtoSubject = $"RE:%20Ballot%20{voter.starId}";
-            string mailto = $"mailto:support@equal.vote?subject={mailtoSubject}";
-            string text = $@"Dear {voter.firstName},
 
-Thank you for registering to vote in the Independent Party of Oregon’s 2020 Primary.
+        public override string TemplateName => "BallotLink";
+
+        public override string ToName => $"{voter.firstName} {voter.lastName}";
+
+        public override string ToEmail => voter.email;
+
+        // EMAIL SUBJECT
+        public override string Subject => $"CONFIDENTIAL: IPO Primary Ballot for {voter.firstName} {voter.lastName}";
+
+        // PLAIN TEXT EMAIL
+        public override string Text => $@"Dear {voter.firstName},
+
+Thank you for registering to vote in the Independent Party of Oregonâ€™s 2020 Primary.
 
 A link to your specific ballot is provided below.
 
@@ -80,8 +65,10 @@ Thanks again for voting!
 The Equal Vote Coalition - https://equal.vote
 The Independent Party of Oregon - https://indparty.com
 ";
-            string html = $@"<div style='max-width:800px;'><p>Dear {voter.firstName},</p>
-<p>Thank you for registering to vote in the Independent Party of Oregon’s 2020 Primary. 
+
+        // HTML EMAIL
+        public override string Html => $@"<div style='max-width:800px;'><p>Dear {voter.firstName},</p>
+<p>Thank you for registering to vote in the Independent Party of Oregonâ€™s 2020 Primary. 
 A link to your ballot is provided below. 
 Please keep this email secure as this link represents your authorization to vote in this election.</p>
 
@@ -131,45 +118,9 @@ and will be linked from your ballot.</p>
 <b>The Independent Party of Oregon</b> - <a href='https://indparty.com'>indparty.com</a></p>
 </div>";
 
-            return new Email(subject, text, html);
-        } 
-
-        [FunctionName(nameof(RequestBallot))]
-        public static async Task<IActionResult> RequestBallot(
-            [HttpTrigger(AuthorizationLevel.Function, "get", "post", Route = null)] HttpRequest req,
-            ILogger log)
+        public BallotLink(dynamic fields)
         {
-            log.LogInformation($"{nameof(RequestBallot)}");
-            string requestBody = await new StreamReader(req.Body).ReadToEndAsync().ConfigureAwait(false);
-            dynamic voter = JsonConvert.DeserializeObject(requestBody);
-            log.LogInformation(requestBody);
-
-            Email email = FormatEmail(voter);
-
-            string subject = email.subject;
-            string text = email.text;
-            string html = email.html;
-            string voterEmail = voter.email;
-            string voterName = $"{voter.firstName} {voter.lastName}";
-            log.LogInformation($"{nameof(RequestBallot)}: {voterEmail}");
-
-            try { 
-                var apiKey = Environment.GetEnvironmentVariable("SENDGRID_API_KEY");
-                var client = new SendGridClient(apiKey);
-                var from = new EmailAddress("support@equal.vote", "IPO / STAR Voting");
-                var to = new EmailAddress(voterEmail, voterName);
-                log.LogInformation($"{nameof(RequestBallot)} Before CreateSingleEmail");
-                var msg = MailHelper.CreateSingleEmail(from, to, subject, text, html);
-                log.LogInformation($"{nameof(RequestBallot)} Before SendEmailAsync");
-                var responseMessage = await client.SendEmailAsync(msg).ConfigureAwait(false);
-                log.LogInformation($"{nameof(RequestBallot)} Succeeded");
-                return new OkObjectResult($"{nameof(RequestBallot)}: Succeeded");
-            }
-            catch (Exception ex)
-            {
-                log.LogError($"{nameof(RequestBallot)} FAILED", ex.Message, ex.GetType().Name, ex.StackTrace.Length, ex.InnerException.ToString());
-                return new BadRequestObjectResult(ex.ToString());
-            }
+            this.voter = fields;
         }
     }
 }
