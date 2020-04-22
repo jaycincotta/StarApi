@@ -32,7 +32,7 @@ The Independent Party of Oregon - https://indparty.com
         // HTML EMAIL
         //public override string Html => $@"<!DOCTYPE HTML><html><head>{styles}</head><body>
         public override string Html => $@"
-<div style='max-width:800px;'><p>Dear {voter.firstName},</p>
+<div style='max-width:800px;'><html><head>{styles}</head><body><p>Dear {voter.firstName},</p>
 
 <p>Thank you for voting in the 2020 Independent Party of Oregon (IPO) primary. Your ballot has been received and is pending credentialing.</p>
 
@@ -61,9 +61,8 @@ Please click the link here to donate to the STAR Elections IPO Primary fund.
 	</a>
 </div>
 <hr/>
-{styles}
 {Styles.SampleVote}
-</div>
+</div></body></html>
 ";
         
         public VoteReceipt(dynamic fields)

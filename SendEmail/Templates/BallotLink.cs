@@ -70,7 +70,7 @@ The Independent Party of Oregon - https://indparty.com
         public override string Html => $@"<div style='max-width:800px;'><p>Dear {voter.firstName},</p>
 <p>Thank you for registering to vote in the Independent Party of Oregon’s 2020 Primary. 
 A link to your ballot is provided below. 
-Please keep this email secure as this link represents your authorization to vote in this election.</p>
+Please keep this email secure as this link provides access to vote in this election in your name.</p>
 
 <p>At the time you cast your vote, you will be required to upload two supporting documents:</p>
 <ul>

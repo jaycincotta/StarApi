@@ -7,9 +7,10 @@ namespace StarApi.SendEmail.Templates
     public static class Styles
     {
         public const string VoterReceipt = @"
-<style>
+<meta charset=utf-8>
+<style type='text/css'>
 div.bigContainer {
-    font-family: verdana, tahoma, helvetica, sans-serif;
+  font-family: verdana, tahoma, helvetica, sans-serif;
   box-shadow: 4px 4px 4px #cccccc;
   border-radius: 10px;
   margin-top: 20px;
