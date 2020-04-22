@@ -38,6 +38,9 @@ namespace StarApi
                     case "BallotLink":
                         template = new BallotLink(request);
                         break;
+                    case "VoteReceipt":
+                        template = new VoteReceipt(request);
+                        break;
                     case null:
                         throw new InvalidDataException("Missing template name");
                     default:
@@ -63,14 +66,17 @@ namespace StarApi
             }
         }
 
+        static string Denullify(string arg) => string.IsNullOrEmpty(arg) ? "" : arg.ToString();
+
         private static object CreateRequest(IQueryCollection query)
         {
             dynamic parameters = new ExpandoObject();
-            parameters.template = query["template"].ToString();
-            parameters.firstName = query["firstName"].ToString();
-            parameters.lastName = query["lastName"].ToString();
-            parameters.email = query["email"].ToString();
-            parameters.starId = query["starId"].ToString();
+            parameters.template = Denullify(query["template"]);
+            parameters.firstName = Denullify(query["firstName"]);
+            parameters.lastName = Denullify(query["lastName"]);
+            parameters.email = Denullify(query["email"]);
+            parameters.ballotHtml = Denullify(query["ballotHtml"]);
+            parameters.starId = Denullify(query["starId"]);
             return parameters;
         }
     }
