@@ -21,102 +21,168 @@ namespace StarApi.SendEmail.Templates
         // PLAIN TEXT EMAIL
         public override string Text => $@"Dear {voter.firstName},
 
-Thank you for registering to vote in the Independent Party of Oregon’s 2020 Primary.
+Thank you for registering to vote in the Independent Party of Oregon's 2020 Primary.
 
-A link to your specific ballot is provided below.
+A link to your ballot is provided below. Please keep this email secure, as this link provides access to vote in this election in your name.
 
-Please keep this email secure as anyone with this link could cast a vote in your name.
+At the time you cast your vote, you will be asked to upload two supporting documents:
 
-At the time you cast your vote, you will be required to also upload two supporting documents:
+* A government-issued photo ID, such as a driver's license, a passport, or an ID card from any state.
 
-1. A photo ID such as your passport or driver's license which includes your full name and date of birth.
+* A recent photo with a clear view of your face that we can match to the face on your photo ID.
 
-2. A recent photo of yourself which we can match to the face on your photo ID.
+NOTE: For most people it is easiest to upload photos of your documents and vote using a smartphone, but you can also use a computer. If you are unable to upload the documents listed above, please see the note at the bottom of this email for more options.
 
-Thank you in advance for your cooperation.  We take election security very seriously and appreciate the extra time it takes for you to gather these documents.
+Please cast your vote now, or as soon as possible.
 
-In most cases, it's easiest to take these photos with your phone and to then vote with your phone by clicking the ballot link in this email.
+ALL BALLOTS MUST BE SUBMITTED NO LATER THAN 8 PM PDT MAY 12th.
 
-You don't need to worry about carefully cropping you images, but they must be high resolution and taken with good lighting so that images are clear enough to be verified by our credentialing team.
+Thanks again for voting!
 
-If the credentialing team cannot verify you from the information you provide, you will be contacted by email and/or phone and you may be requested to provide additional documentation.
+STAR Vote Elections - https://www.starvoting.us
+The Independent Party of Oregon - https://www.indparty.com
 
-Your vote is provisional until we have verified your identity and your ballot will be rejected unless we can verify your identity by Thursday, May 28th 2020.
-
-FINAL DOCUMENTATION MUST BE PROVIDED NO LATER THAN 5 PM PDT MAY 12.
-
-Please vote early so we have time to ensure your vote is counted. 
-
-*************************************************************************************************
+*********************************************************
 BALLOT FOR {voter.firstName} {voter.lastName}
 
 {url}
 
-*************************************************************************************************
+*********************************************************
 
-Note that this primary will use an innovative voting method called STAR Voting.
-Learn more about STAR Voting at https://www.starvoting.us/
+This primary will use STAR Voting.
+https://www.starvoting.us/how_to_vote
 
-If you have any problems voting, you can contact our voter support team by emailing us at
-support@equal.vote or simply replying to this email.
+STAR Voting eliminates vote splitting and the spoiler effect, ensuring that voters can vote their conscience, even in elections with large fields of candidates.
 
-Thanks again for voting!
+STAR Voting is simple. 5-Best, 0-Worst.
 
-The Equal Vote Coalition - https://equal.vote
-The Independent Party of Oregon - https://indparty.com
+As a rule of thumb, it's a good idea to give your favorite or favorites a full five stars, give your least favorite candidate or candidates zero stars, and arrange the others in between. With STAR it's easy to show your preference order and also your level of support for each candidate.
+
+It's safe to vote your conscience, and you don't have to worry about voting for the lesser of two evils' or wasting your vote. If your favorite can't win, your vote automatically goes to the finalist you prefer.
+
+If this is your first election using STAR Voting, please take a moment to go over:
+
+The How to Vote with STAR Voting Guide...
+https://www.starvoting.us/how_to_vote
+
+...and watch this VIDEO
+https://www.youtube.com/watch?v=NuVSn2rAFVU&amp;list=PLdi1cwRPPnuJT7vsg8qwbO5vPFuO9yr2q
+
+NOTES ON ADDITIONAL VOTER IDENTITY DOCUMENTATION
+
+If you do not have a valid photo ID or can&rsquo;t upload a recent photo of yourself, you can still vote, but your ballot will be considered provisional pending verification.
+
+To vote with a provisional ballot please submit the following documentation when you cast your ballot:
+
+* Any photo ID which includes your date of birth. (This does not need to be government-issued or from Oregon.
+
+* Another document confirming the address where you are currently registered to vote and your full name as spelled in your voter registration. (Acceptable examples include: a utility bill, bank statement, pay stub, government document, or voter registration card.)
+
+Thank you in advance for your cooperation. We take election security very seriously.
+
+In most cases, it's easiest to take these photos with your phone and to then vote with your phone by clicking the ballot link below. A webcam or digital camera can also be used. Images must be high resolution and taken with good lighting so that images are legible.
+
+If the credentialing team cannot verify your identity from the information you provide, you will be contacted by email for additional documentation.
+
+If you have any problems voting, you may contact our voter support team by emailing us at support@equal.vote or simply replying to this email.
+
+*********************************************************
+BALLOT FOR {voter.firstName} {voter.lastName}
+
+{url}
+
+*********************************************************
 ";
 
         // HTML EMAIL
-        public override string Html => $@"<div style='max-width:800px;'><p>Dear {voter.firstName},</p>
-<p>Thank you for registering to vote in the Independent Party of Oregon’s 2020 Primary. 
-A link to your ballot is provided below. 
-Please keep this email secure as this link provides access to vote in this election in your name.</p>
+        public override string Html => $@"
+<div style='max-width:800px;'>
+<p>Dear {voter.firstName},</p>
 
-<p>At the time you cast your vote, you will be required to upload two supporting documents:</p>
+<p>Thank you for registering to vote in the Independent Party of Oregon&rsquo;s 2020 Primary.
+   A link to your ballot is provided below. Please keep this email secure, as this link provides
+   access to vote in this election in your name.</p>
+
+<p>At the time you cast your vote, you will be asked to upload two supporting documents:</p>
+
 <ul>
-<li>A photo ID such as your passport or driver's license or other ID which includes your full name, date of birth, and address<br/></li>
-<li>A recent photo with a clear view of your face that we can match to the face on your photo ID</li>
+<li>A government-issued photo ID, such as a driver's license, a passport, or an ID card from any state.</li>
+<li>A recent photo with a clear view of your face that we can match to the face on your photo ID.</li>
 </ul>
 
-<p><b>NOTE</b>: If you do not have a photo ID you may upload the best proof of identity documentation you have
-and you will be issued a provisional ballot pending review.</p>
-
-<p>Thank you in advance for your cooperation.  We take election security very seriously.
-In most cases, it's easiest to take these photos with your phone and to then vote with your phone by clicking the ballot link in this email.
-Images must be high resolution and taken with good lighting so that images are clear enough to be verified by our credentialing team.</p>
-
-<p>If the credentialing team cannot verify you from the information you provide, you will be contacted by email and/or phone and you may be requested to provide additional documentation. 
-Your vote is provisional until we have verified your identity</p>
+<p><strong>NOTE: For most people it is easiest to upload photos of your documents and vote using
+   a smartphone, but you can also use a computer. If you are unable to upload the documents listed above,
+   please see the note at the bottom of this email for more options.</strong></p>
 
 <p>Please cast your vote now, or as soon as possible.</p>
 
-<p><b>ALL VOTES AND FINAL DOCUMENTATION MUST BE SUBMITTED<br/>NO LATER THAN 8 PM PDT MAY 12th.</b></p>
+<p><strong>ALL BALLOTS MUST BE SUBMITTED NO LATER THAN 8&nbsp;PM&nbsp;PDT&nbsp;MAY&nbsp;12<sup>th</sup>.</strong></p>
 
-<p>Please vote early so we have time to ensure your vote is counted.</p>
+<p>Thanks again for voting!</p>
+
+<p><strong>STAR Vote Elections</strong> - <a href='https://www.starvoting.us'>starvoting.us</a><br/>
+<strong>The Independent Party of Oregon</strong> - <a href='https://www.indparty.com'>indparty.com</a></p>
 
 <hr />
 <h1><a href='{url}'>CLICK HERE TO CAST YOUR BALLOT</h1>
 <hr />
 
-<p>This primary will use STAR Voting.</p>
-<p>STAR Voting eliminates vote splitting and the spoiler effect, 
-ensuring that voters can vote their conscience, 
-even in elections with large fields of candidates.</p>
-<p>More information on STAR Voting is available on our <a href='https://www.starvoting.us/ipo_faq'>FAQ</a>
-and will be linked from your ballot.</p>
+<p>This primary will use <a href='https://www.starvoting.us/how_to_vote'>STAR Voting</a>.</p>
 
-<div style='width:100%;margin-top:24px;margin-bottom:24px;'>
-<a href='https://www.starvoting.us'><img src='https://register.ipo.vote/star.png' width='100%'/></a>
+<p>STAR Voting eliminates vote splitting and the spoiler effect, 
+   ensuring that voters can vote their conscience, even in elections with large fields of candidates.</p>
+
+<div style='width:100%;max-width:400px;margin-top:24px;margin-bottom:24px;'>
+<a href='https://www.starvoting.us'><img src='https://d3n8a8pro7vhmx.cloudfront.net/unifiedprimary/pages/227/attachments/original/1587757556/2020_Star.vote_ballot.png?1587757556' 
+width='100%' max-width:'400px' /></a>
 </div>
 
+<h2>STAR Voting is simple. 5-Best, 0-Worst.</h2>
+
+<p>As a rule of thumb, it's a good idea to give your favorite or favorites a full five stars,
+   give your least favorite candidate or candidates zero stars, and arrange the others in between.
+   With STAR it's easy to show your preference order and also your level of support for each candidate.</p>
+
+<p>It's safe to vote your conscience, and you don't have to worry about voting for the 
+   'lesser of two evils' or wasting your vote. If your favorite can't win,
+   your vote automatically goes to the finalist you prefer.</p>
+
+<p>If this is your first election using STAR Voting, please take a moment to go over the
+   <a href='https://www.starvoting.us/how_to_vote'>&ldquo;How to vote with STAR Voting&rdquo;</a>
+   guide and watch this <a href='https://www.youtube.com/watch?v=NuVSn2rAFVU&amp;list=PLdi1cwRPPnuJT7vsg8qwbO5vPFuO9yr2q'>video</a>.</p>
+
+<h2>NOTES ON ADDITIONAL VOTER IDENTITY DOCUMENTATION</h2>
+
+<p>If you do not have a valid photo ID or can&rsquo;t upload a recent photo of yourself,
+   you can still vote, but your ballot will be considered provisional pending verification.</p>
+
+<p><strong>To vote with a provisional ballot please submit the following documentation when you cast your ballot:</strong></p>
+
+<ul>
+<li>Any photo ID which includes your date of birth. (This does not need to be government-issued or from Oregon.)<br/><br/></li>
+
+<li>Another document confirming the address where you are currently registered to vote and your full name
+    as spelled in your voter registration. (Acceptable examples include: a utility bill, bank statement,
+    pay stub, government document, or voter registration card.)</li>
+</ul>
+
+<p>Thank you in advance for your cooperation. We take election security very seriously.&nbsp;</p>
+
+<p><strong>In most cases, it's easiest to take these photos with your phone and to then vote with your phone
+   by clicking the ballot link below. A webcam or digital camera can also be used.
+   Images must be high resolution and taken with good lighting so that images are legible.</strong>&nbsp;</p>
+
+<p>If the credentialing team cannot verify your identity from the information you provide,
+   you will be contacted by email for additional documentation.</p>
+
 <p>If you have any problems voting, you may contact our voter support team by emailing us at
-<a href='{mailto}'>support@equal.vote</a> or simply replying to this email.</p>
+   <a href='{mailto}'>support@equal.vote</a> or simply replying to this email.</p>
 
-<p>Thanks again for voting!</>
-
-<p><b>STAR Vote Elections</b> - <a href='https://starvoting.us'>starvoting.us</a><br/>
-<b>The Independent Party of Oregon</b> - <a href='https://indparty.com'>indparty.com</a></p>
-</div>";
+<hr />
+<h1><a href='{url}'>CLICK HERE TO CAST YOUR BALLOT</h1>
+<hr />
+</div>
+";
 
         public BallotLink(dynamic fields)
         {

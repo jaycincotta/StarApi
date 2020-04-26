@@ -8,3 +8,15 @@ dotnet_diagnostic.CA1305.severity = none
 
 # CA1062: Validate arguments of public methods
 dotnet_diagnostic.CA1062.severity = none
+
+# CA1304: Specify CultureInfo
+dotnet_diagnostic.CA1304.severity = none
+
+# CA1031: Do not catch general exception types
+dotnet_diagnostic.CA1031.severity = none
+
+# CA1822: Member From does not access instance data and can be marked as static (Shared in VisualBasic)
+dotnet_diagnostic.CA1822.severity = silent
+
+# CA1801: Parameter myTimer of method Run is never used. Remove the parameter or use it in the method body.
+dotnet_diagnostic.CA1801.severity = silent
