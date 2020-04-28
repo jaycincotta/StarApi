@@ -16,10 +16,13 @@ dotnet_diagnostic.CA1304.severity = none
 dotnet_diagnostic.CA1031.severity = none
 
 # CA1822: Member From does not access instance data and can be marked as static (Shared in VisualBasic)
-dotnet_diagnostic.CA1822.severity = silent
+dotnet_diagnostic.CA1822.severity = none
 
 # CA1801: Parameter myTimer of method Run is never used. Remove the parameter or use it in the method body.
-dotnet_diagnostic.CA1801.severity = silent
+dotnet_diagnostic.CA1801.severity = none
 
 # CA1307: Specify StringComparison
 dotnet_diagnostic.CA1307.severity = none
+
+# CA2234: Pass system uri objects instead of strings
+dotnet_diagnostic.CA2234.severity = none

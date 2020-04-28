@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace StarApi.SendEmail.Templates
+﻿namespace StarApi.SendEmail.Templates
 {
     public static class Styles
     {

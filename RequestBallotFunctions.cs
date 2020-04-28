@@ -1,5 +1,4 @@
 using System;
-using System.Net;
 using System.IO;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -8,12 +7,8 @@ using Microsoft.Azure.WebJobs.Extensions.Http;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
-using SendGrid;
-using SendGrid.Helpers.Mail;
 using StarApi.SendEmail;
-using StarApi.SendEmail.Templates;
 using System.Dynamic;
-using System.Collections.Generic;
 
 namespace StarApi
 {

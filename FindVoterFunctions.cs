@@ -1,12 +1,10 @@
 using System;
-using System.IO;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Extensions.Http;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
 using System.Data.SqlClient;
 using Dapper;
 
@@ -34,7 +32,7 @@ namespace StarApi
             try
             {
                 Dapper.SqlMapper.AddTypeMap(typeof(string), System.Data.DbType.AnsiString);
-                var connectionString = Environment.GetEnvironmentVariable("DATABASE");
+                var connectionString = Environment.GetEnvironmentVariable("VoterDb");
                 log.LogInformation($"{nameof(FindVoter)}: connectionString length = {connectionString.Length}");
                 using var connection = new SqlConnection(connectionString);
                 var matches = await connection.QueryAsync<dynamic>(

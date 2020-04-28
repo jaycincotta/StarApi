@@ -1,6 +1,5 @@
 ﻿
 using Newtonsoft.Json;
-using System.Text;
 
 namespace StarApi.SendEmail.Templates
 {

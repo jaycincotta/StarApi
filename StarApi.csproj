@@ -4,12 +4,6 @@
     <AzureFunctionsVersion>v3</AzureFunctionsVersion>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Remove="VoterFunctions.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="VoterFunctions.cs" />
-  </ItemGroup>
-  <ItemGroup>
     <PackageReference Include="Dapper" Version="2.0.35" />
     <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="2.9.8">
       <PrivateAssets>all</PrivateAssets>
