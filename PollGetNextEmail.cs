@@ -1,4 +1,5 @@
 using System;
+using System.Configuration;
 using System.IO;
 using System.Net;
 using System.Text;
@@ -12,18 +13,28 @@ namespace StarApi
 {
     public static class PollGetNextEmail
     {
+        private static CredentialCache GetCredential()
+        {
+            string url = @"https://star.ipo.vote/user/ajaxlogin/";
+            CredentialCache credentialCache = new CredentialCache();
+            credentialCache.Add(new System.Uri(url), "Basic", new NetworkCredential("api", "PCj4DsvyzADn9rY"));
+            return credentialCache;
+        }
+
         [FunctionName("PollGetNextEmail")]
         public static async void Run([TimerTrigger("0 */1 * * * *")]TimerInfo myTimer, ILogger log)
         {
             log.LogInformation($"C# Timer trigger function executed at: {DateTime.Now}");
-
+            CookieContainer cookies = StarLogin.Login();
             bool done = false;
 
             while (!done)
             {
                 try
                 {
-                    WebRequest request = WebRequest.Create("https://star.ipo.vote/api/v1/getnextemail/");
+                    HttpWebRequest request = (HttpWebRequest)WebRequest.Create("https://star.ipo.vote/api/v1/getnextemail/");
+                    request.CookieContainer = cookies;
+ 
                     WebResponse response = request.GetResponse();
 
                     log.LogInformation(((HttpWebResponse)response).StatusDescription);
@@ -42,7 +53,7 @@ namespace StarApi
                     {
                         EmailTemplate template = EmailTemplate.Factory(emailRequest.template, emailRequest.fields);
                         log.LogInformation($"{emailRequest.template}: {template.Subject} to {template.ToEmail}");
-                        await SendEmailFunctions.SendEmailTemplate(template).ConfigureAwait(false);
+                        await EmailTemplate.Send(template).ConfigureAwait(false);
                     }
                     response.Close();
                 }
