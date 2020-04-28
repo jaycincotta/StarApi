@@ -7,6 +7,7 @@ namespace StarApi.SendEmail
     public class BallotFlaggedFields
     {
         public string starId { get; set; }
+        public string voterId { get; set; }
         public string reason { get; set; }
         public string email { get; set; }
         public string phone { get; set; }

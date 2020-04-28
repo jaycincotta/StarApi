@@ -15,7 +15,7 @@ namespace StarApi.SendEmail.Templates
 
         public override string ToEmail => voter.email;
 
-        public override string BccEmail => "jay.cincotta+audit@gmail.com";
+        public override string BccEmail => "audit@equal.vote";
         public override string BccName => "IPO2020 Auditor";
 
         // EMAIL SUBJECT

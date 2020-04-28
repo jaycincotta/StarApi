@@ -21,7 +21,7 @@ namespace StarApi.SendEmail.Templates
         public override string ToEmail => "support@equal.vote";
 
         // EMAIL SUBJECT
-        public override string Subject => $"Flagged: {Reason.Caption} - {StarId} from {VoterEmail}";
+        public override string Subject => $"Flagged: {Reason.Caption} - {(Reason.Code == "duplicate" ? VoterId : StarId)} from {VoterEmail}";
 
         // PLAIN TEXT EMAIL
         public override string Text => $@"{Reason.Description}
@@ -41,6 +41,7 @@ View Ballot Information
 <h2>{Reason.Description}</h2>
 <table><tbody>
 <tr><td {labelStyle}>StarId:</td><td {valueStyle}>{StarId}</td></tr>
+<tr><td {labelStyle}>VoterId:</td><td {valueStyle}>{VoterId}</td></tr>
 <tr><td {labelStyle}>Name:</td><td {valueStyle}>{FirstName} {LastName}</td></tr>
 <tr><td {labelStyle}>Email:</td><td {valueStyle}>{VoterEmail}</td></tr>
 <tr><td {labelStyle}>Phone:</td><td {valueStyle}>{VoterPhone}</td></tr>
@@ -49,6 +50,7 @@ View Ballot Information
 ";
         private Reason Reason { get; set; }
         private string StarId { get; set; }
+        private string VoterId { get; set; }
         private string FirstName { get; set; }
         private string LastName { get; set; }
         private string VoterEmail { get; set; }
@@ -65,6 +67,7 @@ View Ballot Information
             Reason = Lookup(fields.reason);
             if (Reason == null) throw new System.InvalidOperationException($"Unknown reason: {fields.reason}");
             StarId = string.IsNullOrWhiteSpace(fields.starId) ? "UNKNOWN" : fields.starId.ToString();
+            VoterId = string.IsNullOrWhiteSpace(fields.voterId) ? "UNKNOWN" : fields.voterId.ToString();
             FirstName = string.IsNullOrWhiteSpace(fields.firstName) ? "" : fields.firstName.ToString();
             LastName = string.IsNullOrWhiteSpace(fields.lastName) ? "" : fields.lastName.ToString();
             VoterEmail = string.IsNullOrWhiteSpace(fields.email) ? "" : fields.email.ToString();

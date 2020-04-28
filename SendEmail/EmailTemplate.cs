@@ -1,6 +1,9 @@
-﻿using SendGrid.Helpers.Mail;
+﻿using SendGrid;
+using SendGrid.Helpers.Mail;
 using StarApi.SendEmail.Templates;
+using System;
 using System.IO;
+using System.Threading.Tasks;
 
 namespace StarApi.SendEmail
 {
@@ -36,6 +39,19 @@ namespace StarApi.SendEmail
                     throw new InvalidDataException($"Unknown template name: {templateName}");
             }
             return template;
+        }
+
+        public static async Task<Response> Send(EmailTemplate email)
+        {
+            var apiKey = Environment.GetEnvironmentVariable("SENDGRID_API_KEY");
+            var client = new SendGridClient(apiKey);
+            var msg = MailHelper.CreateSingleEmail(email.From, email.To, email.Subject, email.Text, email.Html);
+            if (!string.IsNullOrWhiteSpace(email.BccEmail))
+            {
+                msg.AddBcc(email.BccEmail, email.BccName);
+            }
+            var response = await client.SendEmailAsync(msg).ConfigureAwait(false);
+            return response;
         }
     }
 }
