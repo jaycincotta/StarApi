@@ -19,31 +19,16 @@ namespace StarApi
 {
     public static class SendEmailFunctions
     {
-        public static EmailTemplate GetEmailTemplate(string templateName, dynamic fields)
-        {
-            EmailTemplate template;
-            switch (templateName.ToLower())
-            {
-                case "ballotlink":
-                    template = new BallotLink(fields);
-                    break;
-                case "votereceipt":
-                    template = new VoteReceipt(fields);
-                    break;
-                case "ballotflagged":
-                    template = new BallotFlagged(fields);
-                    break;
-                default:
-                    throw new InvalidDataException($"Unknown template name: {templateName}");
-            }
-            return template;
-        }
 
         public static async Task<Response> SendEmailTemplate(EmailTemplate email)
         {
             var apiKey = Environment.GetEnvironmentVariable("SENDGRID_API_KEY");
             var client = new SendGridClient(apiKey);
             var msg = MailHelper.CreateSingleEmail(email.From, email.To, email.Subject, email.Text, email.Html);
+            if (!string.IsNullOrWhiteSpace(email.BccEmail))
+            {
+                msg.AddBcc(email.BccEmail, email.BccName);
+            }
             var response = await client.SendEmailAsync(msg).ConfigureAwait(false);
             return response;
         }
@@ -61,7 +46,7 @@ namespace StarApi
                 dynamic request = string.IsNullOrEmpty(body) ? CreateRequest(req.Query)
                     : JsonConvert.DeserializeObject(body);
 
-                EmailTemplate template = GetEmailTemplate(request.template, request);
+                EmailTemplate template = EmailTemplate.Factory(request.template, request);
                 if (template == null)
                 {
                     log.LogInformation("Nothing to process");

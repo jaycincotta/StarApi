@@ -40,7 +40,7 @@ namespace StarApi
                     }
                     else
                     {
-                        EmailTemplate template = SendEmailFunctions.GetEmailTemplate(emailRequest.template, emailRequest.fields);
+                        EmailTemplate template = EmailTemplate.Factory(emailRequest.template, emailRequest.fields);
                         log.LogInformation($"{emailRequest.template}: {template.Subject} to {template.ToEmail}");
                         await SendEmailFunctions.SendEmailTemplate(template).ConfigureAwait(false);
                     }

@@ -21,10 +21,19 @@ namespace StarApi
             string firstName = req.Query["firstName"];
             string lastName = req.Query["lastName"];
             int birthYear = int.Parse(req.Query["birthYear"]);
+            string referer = req.Headers["Referer"].ToString();
+            log.LogInformation($"Referrer: {referer}");
+            log.LogInformation($"Environment: {Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT")}");
             log.LogInformation($"{nameof(FindVoter)}: FirstName: {firstName} LastName: {lastName} BirthYear: {birthYear}");
 
+            // Secure API based on client referred
+            if (!referer.StartsWith("https://register.ipo.vote") && !referer.StartsWith("http://localhost"))
+            {
+                return new UnauthorizedResult();
+            }
             try
             {
+                Dapper.SqlMapper.AddTypeMap(typeof(string), System.Data.DbType.AnsiString);
                 var connectionString = Environment.GetEnvironmentVariable("DATABASE");
                 log.LogInformation($"{nameof(FindVoter)}: connectionString length = {connectionString.Length}");
                 using var connection = new SqlConnection(connectionString);

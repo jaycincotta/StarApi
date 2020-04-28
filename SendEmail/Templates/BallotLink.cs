@@ -133,7 +133,7 @@ BALLOT FOR {voter.firstName} {voter.lastName}
    ensuring that voters can vote their conscience, even in elections with large fields of candidates.</p>
 
 <div style='width:100%;max-width:400px;margin-top:24px;margin-bottom:24px;'>
-<a href='https://www.starvoting.us'><img src='https://d3n8a8pro7vhmx.cloudfront.net/unifiedprimary/pages/227/attachments/original/1587757556/2020_Star.vote_ballot.png?1587757556' 
+<a href='https://www.starvoting.us'><img src='https://register.ipo.vote/star.png' 
 width='100%' max-width:'400px' /></a>
 </div>
 

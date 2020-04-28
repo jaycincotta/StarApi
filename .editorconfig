@@ -20,3 +20,6 @@ dotnet_diagnostic.CA1822.severity = silent
 
 # CA1801: Parameter myTimer of method Run is never used. Remove the parameter or use it in the method body.
 dotnet_diagnostic.CA1801.severity = silent
+
+# CA1307: Specify StringComparison
+dotnet_diagnostic.CA1307.severity = none
