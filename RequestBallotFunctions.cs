@@ -57,11 +57,12 @@ namespace StarApi
         private static object CreateRequest(IQueryCollection query)
         {
             dynamic parameters = new ExpandoObject();
+
+            parameters.starId = Denullify(query["starId"]);
+            parameters.email = Denullify(query["email"]);
             parameters.firstName = Denullify(query["firstName"]);
             parameters.lastName = Denullify(query["lastName"]);
-            parameters.email = Denullify(query["email"]);
-            parameters.ballotHtml = Denullify(query["ballotHtml"]);
-            parameters.starId = Denullify(query["starId"]);
+
             return parameters;
         }
     }
